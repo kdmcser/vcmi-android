@@ -1,18 +1,25 @@
 package org.libsdl.app;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.InputType;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import eu.vcmi.vcmi.R;
 import eu.vcmi.vcmi.util.Log;
+import eu.vcmi.vcmi.util.Utils;
 
 class DummyEdit extends LinearLayout
 {
@@ -40,14 +47,23 @@ class DummyEdit extends LinearLayout
         mEditText.setText(textContext);
     }
 
-    static class DummyEditText extends android.support.v7.widget.AppCompatEditText implements View.OnKeyListener
+    class DummyEditText extends android.support.v7.widget.AppCompatEditText implements View.OnKeyListener, View.OnTouchListener
     {
+        private final Paint mPaint;
+        private float mCloseXCenter = 0;
+        private float mCloseYCenter = 0;
         InputConnection mInputConnection;
 
         public DummyEditText(final Context context)
         {
             super(context);
             setOnKeyListener(this);
+            setOnTouchListener(this);
+            mPaint = new Paint();
+            mPaint.setColor(ContextCompat.getColor(context, R.color.accent));
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setAntiAlias(true);
+            mPaint.setStrokeWidth(5);
         }
 
         @Override
@@ -106,5 +122,37 @@ class DummyEdit extends LinearLayout
 
             return mInputConnection;
         }
+
+        @Override
+        public boolean onTouch(final View v, final MotionEvent event)
+        {
+            if (event.getX() >= mCloseXCenter - Utils.convertDpToPx(getContext(), 30f))
+            {
+                DummyEdit.this.setVisibility(View.GONE);
+            } else {
+                final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(this, 0);
+            }
+            return false;
+        }
+
+        @Override
+        protected void onDraw(final Canvas canvas)
+        {
+            super.onDraw(canvas);
+            mCloseXCenter = getWidth() - Utils.convertDpToPx(getContext(), 30f);
+            mCloseYCenter = getHeight() / 2.0f;
+            canvas.translate(mCloseXCenter , mCloseYCenter);
+            final int count = 4;
+            final int angle = (int) (360f / count);
+            canvas.save();
+            canvas.rotate(45);
+
+            for (int i = 0; i < count; i++) { canvas.rotate(angle * i);
+                canvas.drawLine(0, 0, Utils.convertDpToPx(getContext(), 10f), 0, mPaint);
+            }
+            canvas.restore();
+        }
+
     }
 }

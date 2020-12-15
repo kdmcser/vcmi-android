@@ -15,8 +15,18 @@ public class ScreenResSettingDialog extends LauncherSettingDialog<ScreenResSetti
     static
     {
         AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(800, 600));
+        AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(960, 600));
+        AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1000, 600));
         AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1024, 600));
+        AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1067, 600));
+        AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1138, 600));
+        AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1200, 600));
+        AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1246, 600));
+        AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1300, 600));
+        AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1181, 664));
         AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1024, 768));
+        AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1280, 720));
+        AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1280, 768));
         AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1280, 800));
         AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1280, 960));
         AVAILABLE_RESOLUTIONS.add(new ScreenResSettingController.ScreenRes(1280, 1024));
